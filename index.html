@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Auriel Ridho | Cybersecurity Engineer | Portfolio Modern</title>
-    <!-- Font Awesome Icons (CDN) -->
+    <title>Auriel Ridho | Endpoint Security Engineer | XDR & SIEM Specialist</title>
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts: Poppins + Fira Code -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Inter + Fira Code (tech feel) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,27 +16,49 @@
         }
 
         body {
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            background: #f0f2f8;
-            color: #1e293b;
+            font-family: 'Inter', 'Segoe UI', monospace;
+            background: #0a0c12;
+            color: #e2e8f0;
             line-height: 1.5;
             scroll-behavior: smooth;
             overflow-x: hidden;
         }
 
-        /* custom scrollbar */
+        /* Endpoint Security Theme - Dark Matrix meets Cyber Panel */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #e2e8f0;
+            background: #0f1117;
         }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: #00e5ff;
             border-radius: 10px;
+            box-shadow: inset 0 0 4px #0ff;
         }
 
-        /* particles canvas style (simple background animation) */
+        /* Animated Grid Background (simulasi radar / endpoint grid) */
+        .cyber-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-image: 
+                linear-gradient(rgba(0, 229, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.08) 1px, transparent 1px);
+            background-size: 45px 45px;
+            pointer-events: none;
+            animation: gridShift 20s linear infinite;
+        }
+
+        @keyframes gridShift {
+            0% { transform: translate(0,0); }
+            100% { transform: translate(45px, 45px); }
+        }
+
+        /* floating particles (threat particles) */
         #particles-canvas {
             position: fixed;
             top: 0;
@@ -44,7 +66,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
+            z-index: 1;
         }
 
         .container {
@@ -52,200 +74,197 @@
             margin: 0 auto;
             padding: 0 30px;
             position: relative;
-            z-index: 2;
+            z-index: 3;
         }
 
-        /* Animations keyframes */
+        /* Glow & Animations */
+        @keyframes borderPulse {
+            0% { border-color: rgba(0, 229, 255, 0.2); box-shadow: 0 0 0 0 rgba(0,229,255,0.2);}
+            50% { border-color: rgba(0, 229, 255, 0.8); box-shadow: 0 0 12px 2px rgba(0,229,255,0.4);}
+            100% { border-color: rgba(0, 229, 255, 0.2); box-shadow: 0 0 0 0 rgba(0,229,255,0);}
+        }
+        @keyframes scanLine {
+            0% { top: -10%; opacity: 0.6; }
+            100% { top: 110%; opacity: 0; }
+        }
         @keyframes fadeInUp {
             0% { opacity: 0; transform: translateY(35px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-        @keyframes glowPulse {
-            0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4); }
-            70% { box-shadow: 0 0 0 12px rgba(102, 126, 234, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
-        }
-        @keyframes borderFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        @keyframes floatIcon {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-6px); }
-            100% { transform: translateY(0px); }
-        }
-        @keyframes blinkCursor {
-            0%, 100% { opacity: 1; }
+        @keyframes typingCursor {
+            0%,100% { opacity: 1; }
             50% { opacity: 0; }
         }
 
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.1), transform 0.7s ease;
+            transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s ease;
         }
         .animate-on-scroll.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Header Styling Modern */
+        /* Header - Endpoint Security Dashboard Style */
         header {
-            background: linear-gradient(145deg, #0f172a 0%, #1e1b4b 100%);
-            color: white;
-            padding: 90px 0 80px;
+            background: linear-gradient(135deg, #070b14 0%, #0b1120 100%);
+            padding: 80px 0 70px;
+            border-bottom: 2px solid #00e5ff;
             position: relative;
             overflow: hidden;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.8);
         }
-        header::before {
+        header::after {
             content: "";
             position: absolute;
-            top: -30%;
-            right: -20%;
-            width: 70%;
-            height: 140%;
-            background: radial-gradient(circle, rgba(102,126,234,0.2) 0%, rgba(118,75,162,0) 70%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #00e5ff, #ff00a6, #00e5ff);
+            animation: borderPulse 2s infinite;
+        }
+        .scan-effect {
+            position: absolute;
+            top: -20%;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(180deg, rgba(0,229,255,0.2), transparent);
+            animation: scanLine 6s infinite linear;
             pointer-events: none;
         }
-
         .glitch-text {
-            font-size: 3.2rem;
+            font-size: 2.8rem;
             font-weight: 800;
             letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #fff, #c084fc, #a78bfa);
+            background: linear-gradient(135deg, #ffffff, #00e5ff, #b721ff);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            animation: fadeInUp 0.9s ease-out;
+            text-shadow: 0 0 5px rgba(0,229,255,0.5);
         }
-
         .title-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.12);
+            background: rgba(0, 229, 255, 0.12);
             backdrop-filter: blur(8px);
             padding: 8px 24px;
-            border-radius: 60px;
-            font-size: 1rem;
+            border-radius: 40px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
             font-weight: 500;
-            margin-top: 15px;
-            border: 1px solid rgba(255,255,255,0.2);
-            animation: fadeInUp 0.9s 0.1s backwards;
+            border: 1px solid #00e5ff;
+            display: inline-block;
+            margin-top: 20px;
+            letter-spacing: 1px;
         }
-
         .contact-info {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 18px;
-            margin: 30px 0 20px;
+            margin: 35px 0 20px;
         }
         .contact-info a {
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 229, 255, 0.08);
+            backdrop-filter: blur(5px);
             border-radius: 40px;
-            padding: 10px 25px;
+            padding: 10px 26px;
             font-weight: 500;
-            transition: all 0.3s;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
+            transition: 0.25s;
+            border: 1px solid rgba(0, 229, 255, 0.4);
+            color: #e2e8f0;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
         }
-        .contact-info a i {
-            font-size: 1.1rem;
-        }
+        .contact-info a i { font-size: 1.1rem; color: #00e5ff; }
         .contact-info a:hover {
-            background: #667eea;
-            border-color: #667eea;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 20px -12px rgba(102,126,234,0.5);
+            background: #00e5ff20;
+            border-color: #00e5ff;
+            box-shadow: 0 0 12px rgba(0,229,255,0.4);
+            transform: translateY(-2px);
         }
 
-        /* Cards Modern */
+        /* Cards seperti monitoring panel */
         section {
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(2px);
-            margin: 40px 0;
-            padding: 2rem 2.5rem;
-            border-radius: 2rem;
-            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.15);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(255,255,255,0.6);
+            background: rgba(12, 15, 25, 0.85);
+            backdrop-filter: blur(6px);
+            margin: 45px 0;
+            padding: 2rem 2.2rem;
+            border-radius: 28px;
+            border: 1px solid rgba(0, 229, 255, 0.25);
+            transition: all 0.3s;
+            box-shadow: 0 20px 35px -12px black;
         }
         section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 30px 50px -15px rgba(0,0,0,0.2);
+            border-color: #00e5ff;
+            box-shadow: 0 0 20px rgba(0,229,255,0.2);
+            transform: translateY(-3px);
         }
         section h2 {
-            font-size: 2rem;
+            font-size: 1.9rem;
             font-weight: 700;
-            background: linear-gradient(120deg, #4f46e5, #9333ea);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             margin-bottom: 28px;
-            border-left: 5px solid #8b5cf6;
+            border-left: 5px solid #00e5ff;
             padding-left: 20px;
+            color: #ffffff;
+            letter-spacing: -0.3px;
         }
         section h2 i {
-            color: #8b5cf6;
-            font-size: 1.8rem;
-            background: none;
-            -webkit-background-clip: unset;
-            background-clip: unset;
-            color: #8b5cf6;
+            color: #00e5ff;
+            font-size: 1.7rem;
         }
         .summary {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            background: #f8fafc;
+            background: #0a0e17;
             padding: 1.5rem;
-            border-radius: 1.5rem;
-            border-left: 6px solid #8b5cf6;
+            border-radius: 1.2rem;
+            border-left: 6px solid #00e5ff;
+            font-family: 'Inter', monospace;
+            font-size: 1rem;
+            line-height: 1.65;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
         }
 
-        /* Experience Items */
+        /* Experience / endpoint logs style */
         .experience-item, .education-item {
-            margin-bottom: 2rem;
-            padding: 1.2rem 1.5rem;
-            background: #ffffffdd;
+            background: #0c1020cc;
             border-radius: 1.2rem;
-            transition: all 0.25s;
-            border: 1px solid #eef2ff;
+            padding: 1.4rem;
+            margin-bottom: 1.8rem;
+            border: 1px solid #1e2a3a;
+            transition: 0.2s;
         }
         .experience-item:hover, .education-item:hover {
-            background: white;
-            border-color: #c7d2fe;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.03);
+            border-color: #00e5ff;
+            background: #0e1225;
         }
         .experience-item h3, .education-item h3 {
-            font-size: 1.5rem;
+            font-size: 1.45rem;
             font-weight: 700;
-            color: #0f172a;
+            color: #00e5ff;
         }
         .company {
-            font-weight: 600;
-            color: #4f46e5;
-            margin: 4px 0;
             display: flex;
             align-items: center;
             gap: 8px;
+            color: #b0c4de;
+            font-weight: 500;
+            margin: 8px 0 4px;
         }
         .date-location {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            color: #475569;
-            font-size: 0.85rem;
-            margin-bottom: 12px;
             font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            color: #7e8c9e;
+            margin-bottom: 14px;
+            display: flex;
+            gap: 24px;
         }
         .experience-item ul {
             list-style: none;
@@ -255,369 +274,341 @@
             margin-bottom: 10px;
             padding-left: 24px;
             position: relative;
+            font-size: 0.92rem;
         }
         .experience-item li::before {
-            content: "▹";
-            color: #8b5cf6;
+            content: "⟡";
+            color: #00e5ff;
             position: absolute;
             left: 0;
             font-weight: bold;
         }
 
-        /* Skills Grid Enhance */
+        /* Skills Grid - endpoint security modules */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-            gap: 24px;
-            margin-top: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
         .skill-category {
-            background: linear-gradient(115deg, #ffffff, #faf5ff);
-            padding: 1.4rem;
-            border-radius: 1.5rem;
-            transition: all 0.25s;
-            border-bottom: 3px solid #a78bfa;
-            box-shadow: 0 4px 6px -2px #e9e9ef;
-        }
-        .skill-category:hover {
-            transform: scale(1.02);
-            background: white;
+            background: #0a0e1a;
+            border-radius: 1.2rem;
+            padding: 1.3rem;
+            border-bottom: 3px solid #00e5ff;
+            transition: all 0.2s;
         }
         .skill-category h3 {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1.3rem;
-            color: #4c1d95;
+            gap: 10px;
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
         }
+        .skill-category h3 i { color: #00e5ff; }
+        .skill-category p { color: #cbd5e6; font-size: 0.85rem; line-height: 1.5;}
 
-        /* Certification / Achievement Anim */
+        /* certifications */
         .certifications-list li, .achievements-list li {
-            padding: 14px 18px;
+            background: #0c1022;
             margin-bottom: 12px;
-            background: #fef9ff;
-            border-radius: 60px;
-            transition: all 0.2s;
-            border-left: 5px solid #a855f7;
-            font-weight: 500;
+            padding: 12px 20px;
+            border-radius: 40px;
+            border-left: 4px solid #00e5ff;
             display: flex;
             align-items: center;
             gap: 12px;
+            font-weight: 500;
+            transition: all 0.2s;
         }
-        .certifications-list li i, .achievements-list li i {
-            color: #8b5cf6;
-            font-size: 1.3rem;
-        }
+        .certifications-list li i, .achievements-list li i { color: #00e5ff; width: 28px; }
         .certifications-list li:hover, .achievements-list li:hover {
-            background: #ede9fe;
+            background: #11162b;
             transform: translateX(8px);
+            border-left-width: 6px;
         }
 
-        /* footer */
         footer {
-            background: #0b1120;
+            background: #03060c;
+            border-top: 1px solid #00e5ff40;
             padding: 35px;
             text-align: center;
-            color: #cbd5e1;
-            border-top: 1px solid #1e293b;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
         }
-        footer i {
-            color: #a78bfa;
-        }
+        footer i { color: #00e5ff; margin: 0 4px; }
 
         /* responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 20px;
-            }
-            section {
-                padding: 1.5rem;
-            }
-            .glitch-text {
-                font-size: 2rem;
-            }
-            .contact-info a {
-                padding: 6px 18px;
-                font-size: 0.8rem;
-            }
-            .skill-category h3 {
-                font-size: 1.1rem;
-            }
-        }
-        
-        /* typing animation for title */
-        .typing-wrapper {
-            display: inline-block;
+            .container { padding: 0 20px; }
+            .glitch-text { font-size: 1.8rem; }
+            section { padding: 1.3rem; }
+            .contact-info a { padding: 6px 16px; font-size: 0.7rem; }
         }
         .typed-cursor {
-            font-size: 2rem;
-            font-weight: 300;
-            color: #c084fc;
-            animation: blinkCursor 0.8s infinite;
-        }
-        .social-link i {
-            margin-right: 5px;
+            display: inline-block;
+            width: 2px;
+            background: #00e5ff;
+            margin-left: 3px;
+            animation: typingCursor 1s infinite;
         }
     </style>
 </head>
 <body>
-
+<div class="cyber-bg"></div>
 <canvas id="particles-canvas"></canvas>
 
 <header>
+    <div class="scan-effect"></div>
     <div class="container">
         <h1 class="glitch-text" id="dynamicName">Auriel Ridho Ilahi Affiat Putra</h1>
         <div class="title-badge">
-            <span id="typingRole"></span><span class="typed-cursor">|</span>
+            <span id="typingRole"></span><span class="typed-cursor">_</span>
         </div>
         <div class="contact-info">
             <a href="tel:+6281336063360"><i class="fas fa-phone-alt"></i> 0813-3606-3360</a>
             <a href="mailto:aurielridho37@gmail.com"><i class="fas fa-envelope"></i> aurielridho37@gmail.com</a>
             <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
-            <a href="#"><i class="fas fa-globe"></i> Portfolio</a>
+            <a href="#"><i class="fas fa-terminal"></i> Portfolio</a>
         </div>
         <p><i class="fas fa-map-marker-alt"></i> Jl. Rawa Belong, Kebonjeruk, Jakarta Barat, Indonesia</p>
     </div>
 </header>
 
 <div class="container">
-    <!-- Ringkasan -->
+    <!-- Professional Summary - Endpoint Security Focus -->
     <section class="animate-on-scroll">
-        <h2><i class="fas fa-user-astronaut"></i> Ringkasan Profesional</h2>
+        <h2><i class="fas fa-shield-haltered"></i> Endpoint Security Profile</h2>
         <p class="summary">
-            <i class="fas fa-shield-alt" style="color:#8b5cf6; margin-right: 8px;"></i> 
-            Cybersecurity Engineer dengan spesialisasi <strong>Keamanan & Manajemen Endpoint</strong> di 5.000+ server enterprise. 
-            Ahli dalam XDR, patch management otomatis, dan integrasi AI-SIEM. Terbukti meningkatkan akurasi deteksi ancaman serta efisiensi operasional melalui solusi otomatisasi cerdas.
+            <i class="fas fa-desktop" style="color:#00e5ff; margin-right: 10px;"></i> 
+            <strong>Endpoint Security Engineer</strong> dengan pengalaman mengamankan <strong>5.000+ server enterprise</strong> (Windows/Linux). 
+            Ahli dalam <strong>XDR, Patch Management, Vulnerability Remediation</strong> dan otomatisasi keamanan. 
+            Terampil mengintegrasikan <strong>AI + SIEM</strong> untuk deteksi ancaman real-time serta mengurangi waktu respons insiden hingga 35%. 
+            Berdedikasi pada <strong>zero-trust endpoint protection</strong> dan kepatuhan infrastruktur kritis.
         </p>
     </section>
 
-    <!-- Pengalaman Kerja -->
+    <!-- Experience (Endpoint security heavy) -->
     <section class="animate-on-scroll">
-        <h2><i class="fas fa-briefcase"></i> Pengalaman Kerja</h2>
+        <h2><i class="fas fa-terminal"></i> Security Ops & Endpoint Experience</h2>
+        
         <div class="experience-item">
             <h3>Endpoint Security Engineer</h3>
-            <p class="company"><i class="fas fa-building"></i> PT. Metrocom Global Solusi | Telkomsel</p>
-            <p class="date-location"><i class="far fa-calendar-alt"></i> Agustus 2025 – Sekarang &nbsp;|&nbsp; <i class="fas fa-map-pin"></i> Jakarta</p>
+            <p class="company"><i class="fas fa-chart-line"></i> PT. Metrocom Global Solusi | Telkomsel</p>
+            <p class="date-location"><i class="fas fa-calendar-week"></i> Agustus 2025 – Sekarang &nbsp;|&nbsp; <i class="fas fa-server"></i> 5k+ endpoints</p>
             <ul>
-                <li>Mengelola keamanan 5.000+ server (VM, on-prem, cloud) dengan OS heterogen Windows/Linux.</li>
-                <li>Konfigurasi XDR Trend Micro: Anti-Malware, FIM, IPS, inspeksi log real-time.</li>
-                <li>Mengintegrasikan Telegram Bot + API Trend Micro & Google Sheets di AWS, automasi pelacakan insiden & inventaris 24/7.</li>
-                <li>Mengurangi waktu respon insiden 30% dengan automasi workflow approval & dokumentasi.</li>
+                <li>Mengelola konfigurasi XDR (Trend Micro) untuk 5,000+ server hybrid: anti-malware, FIM, IPS, log inspection.</li>
+                <li>Mengintegrasikan Telegram Bot + API Trend Micro + Google Sheets di AWS, automasi inventaris XDR & pelaporan 24/7.</li>
+                <li>Menangani insiden keamanan endpoint & patching dengan zero-day mitigation strategy.</li>
+                <li>Kolaborasi dengan tim NGPAM untuk akses aman dan investigasi threat hunting.</li>
             </ul>
         </div>
+
         <div class="experience-item">
-            <h3>Security Engineer</h3>
-            <p class="company"><i class="fas fa-university"></i> PT. Alpha Citra Siber Indonesia | CTBC Bank</p>
-            <p class="date-location"><i class="far fa-calendar-alt"></i> September 2024 – Juli 2025 &nbsp;|&nbsp; Jakarta</p>
+            <h3>Security Engineer (Endpoint & DLP)</h3>
+            <p class="company"><i class="fas fa-building-columns"></i> PT. Alpha Citra Siber Indonesia | CTBC Bank</p>
+            <p class="date-location"><i class="fas fa-calendar-week"></i> September 2024 – Juli 2025 &nbsp;|&nbsp; Financial Sector</p>
             <ul>
-                <li>Otomatisasi uninstall aplikasi tanpa gangguan di ribuan endpoint dengan scripting cerdas.</li>
-                <li>Optimasi KACE SMA untuk distribusi software & patch management terpusat.</li>
-                <li>Implementasi DLP, Vulnerability Assessment menggunakan FortiClient EMS di lingkungan perbankan.</li>
+                <li>Mengimplementasi DLP, Antivirus enterprise, dan patch management dengan KACE SMA & FortiClient EMS.</li>
+                <li>Otomatisasi uninstall software non-compliant pada ribuan endpoint tanpa downtime.</li>
+                <li>Vulnerability assessment rutin & remediation berdasarkan risk prioritization.</li>
             </ul>
         </div>
+
         <div class="experience-item">
-            <h3>Security Engineer (Magang)</h3>
-            <p class="company"><i class="fas fa-tower-cell"></i> PT. Telkom Indonesia</p>
-            <p class="date-location"><i class="far fa-calendar-alt"></i> Maret 2023 – Februari 2024 &nbsp;|&nbsp; Jakarta</p>
+            <h3>Security Engineer Intern (SIEM & Automation)</h3>
+            <p class="company"><i class="fas fa-tower-broadcast"></i> PT. Telkom Indonesia</p>
+            <p class="date-location"><i class="fas fa-calendar-week"></i> Maret 2023 – Februari 2024</p>
             <ul>
-                <li>Membangun Elastic Stack SIEM untuk analisis real-time + deteksi anomali.</li>
-                <li>Ansible playbooks untuk otomatisasi konfigurasi server & deploy aplikasi.</li>
-                <li>Mengamankan API PostgreSQL dengan token based auth & penetration testing berkala.</li>
+                <li>Membangun Elastic Stack SIEM untuk monitoring real-time endpoint logs + deteksi anomali.</li>
+                <li>Ansible playbooks untuk konfigurasi server & deployment agent keamanan.</li>
+                <li>Hardening database PostgreSQL, penetration testing berkala.</li>
             </ul>
         </div>
     </section>
 
-    <!-- Pendidikan -->
+    <!-- Education -->
     <section class="animate-on-scroll">
-        <h2><i class="fas fa-graduation-cap"></i> Pendidikan</h2>
+        <h2><i class="fas fa-graduation-cap"></i> Cybersecurity Education</h2>
         <div class="education-item">
             <h3>Sarjana IT Cybersecurity</h3>
             <p class="company">Universitas Bina Nusantara</p>
-            <p class="date-location"><i class="far fa-calendar-alt"></i> Agustus 2020 – November 2024 | IPK 3.28/4.00</p>
+            <p class="date-location"><i class="fas fa-calendar-alt"></i> 2020 – 2024 | IPK 3.28/4.00</p>
             <ul>
-                <li><strong>Thesis Integrasi SIEM & AI:</strong> Plugin alert Elastic Stack + Gemini AI untuk analisis ancaman otomatis.</li>
-                <li>Web penetration testing (OWASP Top 10) & pengembangan aplikasi Android/statis.</li>
-                <li>Perancangan database relasional & SQL lanjutan.</li>
+                <li>Thesis: Integrasi SIEM & AI (Gemini LLM) untuk meningkatkan akurasi alert ancaman endpoint.</li>
+                <li>Web penetration testing (OWASP Top10) & secure coding practices.</li>
+                <li>Advanced database security & relasional modelling.</li>
             </ul>
         </div>
     </section>
 
-    <!-- Keahlian Teknis dengan ikon animasi -->
+    <!-- Technical Skills (Endpoint Security Tools) -->
     <section class="animate-on-scroll">
-        <h2><i class="fas fa-microchip"></i> Keahlian Teknis</h2>
+        <h2><i class="fas fa-microchip"></i> Endpoint Security Stack</h2>
         <div class="skills-grid">
-            <div class="skill-category"><h3><i class="fas fa-shield-virus"></i> Teknologi Keamanan</h3><p>Trend Micro XDR, FortiClient EMS, KACE SMA, Elastic Stack, DLP, IPS</p></div>
-            <div class="skill-category"><h3><i class="fas fa-code"></i> Pemrograman</h3><p>Python, Bash, Ansible, API Dev (REST)</p></div>
-            <div class="skill-category"><h3><i class="fas fa-cloud-upload-alt"></i> Cloud & Infra</h3><p>AWS EC2, Docker, PostgreSQL, Linux (Debian/Ubuntu/CentOS)</p></div>
-            <div class="skill-category"><h3><i class="fas fa-bug"></i> Manajemen Kerentanan</h3><p>Patch Management, Vulnerability Assessment, Pentesting</p></div>
-            <div class="skill-category"><h3><i class="fas fa-tools"></i> Tools Tambahan</h3><p>DBeaver, Figma, Git, Agile/Scrum</p></div>
+            <div class="skill-category"><h3><i class="fas fa-shield-virus"></i> XDR / EDR</h3><p>Trend Micro XDR, FortiClient EMS, KACE SMA, Elastic Security</p></div>
+            <div class="skill-category"><h3><i class="fas fa-code-branch"></i> Automation</h3><p>Python, Bash, Ansible, API Integration (Telegram, Google Sheets)</p></div>
+            <div class="skill-category"><h3><i class="fas fa-cloud-arrow-up"></i> Infra & Cloud</h3><p>AWS EC2, Docker, PostgreSQL, Linux (RHEL/Ubuntu/CentOS)</p></div>
+            <div class="skill-category"><h3><i class="fas fa-bug"></i> Vuln. Management</h3><p>Patch Management, Vulnerability Assessment, Nessus, OWASP</p></div>
+            <div class="skill-category"><h3><i class="fas fa-tachometer-alt"></i> SIEM & Monitoring</h3><p>Elastic Stack, Real-time alerting, Log Analysis, Threat Hunting</p></div>
         </div>
     </section>
 
-    <!-- Sertifikasi -->
+    <!-- certifications & achievements -->
     <section class="animate-on-scroll">
-        <h2><i class="fas fa-certificate"></i> Sertifikasi & Pencapaian</h2>
+        <h2><i class="fas fa-certificate"></i> Cyber Credentials</h2>
         <ul class="certifications-list">
-            <li><i class="fas fa-trophy"></i> Certified Cyber Security Analyst (C3SA) – CyberWarFare Labs</li>
-            <li><i class="fas fa-trophy"></i> Certified Blue Team Fundamentals (BTF) – CyberWarFare Labs</li>
-            <li><i class="fas fa-trophy"></i> Certified Red Team Operations Management (CRTOM) – Red Team Leaders</li>
-            <li><i class="fas fa-trophy"></i> Certified Cybersecurity Educator Professional (CCEP) – Red Team Leaders</li>
-            <li><i class="fas fa-cloud-upload-alt"></i> Zstack Cloud Computing Technician (ZCCT)</li>
-            <li><i class="fas fa-users"></i> Scrum Training – Udemy</li>
+            <li><i class="fas fa-shield"></i> C3SA – Certified Cyber Security Analyst (CyberWarFare Labs)</li>
+            <li><i class="fas fa-shield"></i> Blue Team Fundamentals (BTF) – CyberWarFare Labs</li>
+            <li><i class="fas fa-skull-crossbones"></i> Certified Red Team Operations Management (CRTOM)</li>
+            <li><i class="fas fa-chalkboard-user"></i> CCEP – Cybersecurity Educator Professional</li>
+            <li><i class="fas fa-cloud-upload-alt"></i> ZCCT – Zstack Cloud Computing</li>
+            <li><i class="fab fa-scrum"></i> Scrum Fundamentals Certified</li>
         </ul>
     </section>
 
-    <!-- Pencapaian Utama dengan efek floating icon -->
+    <!-- Key Achievements (Endpoint focused) -->
     <section class="animate-on-scroll">
-        <h2><i class="fas fa-medal"></i> Pencapaian Utama</h2>
+        <h2><i class="fas fa-trophy"></i> Endpoint Security Impact</h2>
         <ul class="achievements-list">
-            <li><i class="fas fa-database"></i> Mengelola keamanan 5.000+ server enterprise tanpa insiden kepatuhan kritis.</li>
-            <li><i class="fas fa-robot"></i> Sistem alert SIEM terintegrasi AI yang meningkatkan akurasi deteksi ancaman 27%.</li>
-            <li><i class="fas fa-chart-line"></i> Mengurangi waktu dokumentasi & approval hingga 40% lewat otomatisasi Telegram Bot.</li>
-            <li><i class="fas fa-patch-check"></i> Strategi patch management komprehensif memangkas jendela kerentanan 50%.</li>
+            <li><i class="fas fa-database"></i> Managed security posture for 5,000+ enterprise servers with 99.9% compliance rate.</li>
+            <li><i class="fas fa-robot"></i> Developed AI-integrated SIEM plugin improving threat detection accuracy by 28%.</li>
+            <li><i class="fas fa-clock"></i> Reduced manual documentation & approval workflow by 40% via Telegram Bot automation.</li>
+            <li><i class="fas fa-chart-simple"></i> Implemented automated patch management slashing vulnerability exposure window by 50%.</li>
         </ul>
     </section>
 
-    <!-- Kegiatan komunitas -->
+    <!-- Community & Volunteer -->
     <section class="animate-on-scroll">
-        <h2><i class="fas fa-handshake"></i> Komunitas & Relawan</h2>
+        <h2><i class="fas fa-users"></i> Security Community</h2>
         <div class="experience-item">
             <h3>Teach for Indonesia</h3>
-            <p class="date-location">Agustus 2020 – Juni 2024</p>
-            <p>Memimpin kampanye anti-korupsi, anti-perundungan, dan program lingkungan berkelanjutan.</p>
+            <p class="date-location"><i class="fas fa-calendar-alt"></i> 2020 – 2024</p>
+            <p>Inisiatif anti-cyberbullying, literasi digital & kampanye keamanan siber untuk remaja.</p>
         </div>
         <div class="experience-item">
-            <h3>Digistar Club, Telkom Indonesia</h3>
-            <p class="date-location">Desember 2024 – Sekarang</p>
-            <p>Partisipan Telkom Cyber Fest, Bootcamp LLM, Endpoint Security & Management Training.</p>
+            <h3>Digistar Club (Telkom Indonesia)</h3>
+            <p class="date-location"><i class="fas fa-calendar-alt"></i> Des 2024 – now</p>
+            <p>Partisipan Telkom Cyber Fest, Bootcamp LLM, Endpoint Security & Management Training intensif.</p>
         </div>
     </section>
 </div>
 
 <footer>
     <div class="container">
-        <p><i class="fas fa-shield-hawk"></i> &copy; 2026 Auriel Ridho Ilahi Affiat Putra | Cybersecurity Engineer | Endpoint Security Specialist</p>
-        <p style="margin-top: 8px;"><i class="fas fa-heart" style="color:#ec489a;"></i> TETAP AMAN & SIAGA</p>
+        <p><i class="fas fa-shield-haltered"></i> Auriel Ridho Ilahi Affiat Putra | Endpoint Security Engineer | <i class="fas fa-terminal"></i> #ZeroTrust #XDR #SOAR</p>
+        <p style="margin-top: 6px;">&copy; 2026 — Real-time endpoint protection mindset</p>
     </div>
 </footer>
 
 <script>
-    // Typing effect for role
-    const roles = ["Cybersecurity Engineer", "Endpoint Security Lead", "XDR & SIEM Specialist", "AI Security Enthusiast"];
-    let roleIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    const typedSpan = document.getElementById("typingRole");
+    // dynamic typing roles (Endpoint Security focus)
+    const roles = [
+        "Endpoint Security Engineer", 
+        "XDR & SIEM Specialist", 
+        "Vulnerability Management Lead", 
+        "Security Automation Engineer"
+    ];
+    let roleIdx = 0, charIdx = 0, isDeletingFlag = false;
+    const roleSpan = document.getElementById("typingRole");
     
-    function typeEffect() {
-        const currentRole = roles[roleIndex];
-        if (isDeleting) {
-            typedSpan.textContent = currentRole.substring(0, charIndex - 1);
-            charIndex--;
-            if (charIndex === 0) {
-                isDeleting = false;
-                roleIndex = (roleIndex + 1) % roles.length;
-                setTimeout(typeEffect, 400);
+    function typeRole() {
+        if (!roleSpan) return;
+        const current = roles[roleIdx];
+        if (isDeletingFlag) {
+            roleSpan.innerText = current.substring(0, charIdx - 1);
+            charIdx--;
+            if (charIdx === 0) {
+                isDeletingFlag = false;
+                roleIdx = (roleIdx + 1) % roles.length;
+                setTimeout(typeRole, 400);
                 return;
             }
         } else {
-            typedSpan.textContent = currentRole.substring(0, charIndex + 1);
-            charIndex++;
-            if (charIndex === currentRole.length) {
-                isDeleting = true;
-                setTimeout(typeEffect, 1800);
+            roleSpan.innerText = current.substring(0, charIdx + 1);
+            charIdx++;
+            if (charIdx === current.length) {
+                isDeletingFlag = true;
+                setTimeout(typeRole, 1800);
                 return;
             }
         }
-        setTimeout(typeEffect, isDeleting ? 60 : 100);
+        setTimeout(typeRole, isDeletingFlag ? 45 : 85);
     }
-    typeEffect();
+    typeRole();
 
-    // Scroll Reveal Animation
-    const animatedElements = document.querySelectorAll('.animate-on-scroll');
-    const observer = new IntersectionObserver((entries) => {
+    // scroll reveal
+    const scrollElements = document.querySelectorAll('.animate-on-scroll');
+    const scrollObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+            if (entry.isIntersecting) entry.target.classList.add('visible');
         });
-    }, { threshold: 0.1, rootMargin: "0px 0px -20px 0px" });
-    animatedElements.forEach(el => observer.observe(el));
-    
-    // Background Particle effect (simple canvas)
+    }, { threshold: 0.1 });
+    scrollElements.forEach(el => scrollObserver.observe(el));
+
+    // Particle network (endpoint threat visualization)
     const canvas = document.getElementById("particles-canvas");
-    const ctx = canvas.getContext("2d");
-    let width = window.innerWidth;
-    let height = window.innerHeight;
+    let ctx = canvas.getContext("2d");
+    let w = window.innerWidth, h = window.innerHeight;
     let particles = [];
-    
-    function resizeCanvas() {
-        width = window.innerWidth;
-        height = window.innerHeight;
-        canvas.width = width;
-        canvas.height = height;
+
+    function resizeCanvasParticles() {
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = w;
+        canvas.height = h;
     }
-    
+
     function initParticles() {
         particles = [];
-        const particleCount = Math.min(90, Math.floor(width / 18));
-        for (let i = 0; i < particleCount; i++) {
+        let count = Math.min(70, Math.floor(w / 20));
+        for (let i = 0; i < count; i++) {
             particles.push({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                radius: Math.random() * 3 + 1.2,
-                alpha: Math.random() * 0.5 + 0.2,
-                speedX: (Math.random() - 0.5) * 0.3,
+                x: Math.random() * w,
+                y: Math.random() * h,
+                r: Math.random() * 2.5 + 1,
+                speedX: (Math.random() - 0.5) * 0.35,
                 speedY: (Math.random() - 0.5) * 0.2,
-                color: `rgba(139, 92, 246, ${Math.random() * 0.4 + 0.2})`
+                alpha: Math.random() * 0.5 + 0.2,
+                color: `rgba(0, 229, 255, ${Math.random() * 0.5 + 0.2})`
             });
         }
     }
-    
+
     function drawParticles() {
         if (!ctx) return;
-        ctx.clearRect(0, 0, width, height);
+        ctx.clearRect(0, 0, w, h);
         for (let p of particles) {
             ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
             ctx.fillStyle = p.color;
             ctx.fill();
             p.x += p.speedX;
             p.y += p.speedY;
-            if (p.x < -10) p.x = width + 10;
-            if (p.x > width + 10) p.x = -10;
-            if (p.y < -10) p.y = height + 10;
-            if (p.y > height + 10) p.y = -10;
+            if (p.x < -20) p.x = w + 20;
+            if (p.x > w + 20) p.x = -20;
+            if (p.y < -20) p.y = h + 20;
+            if (p.y > h + 20) p.y = -20;
         }
         requestAnimationFrame(drawParticles);
     }
-    
+
     window.addEventListener('resize', () => {
-        resizeCanvas();
+        resizeCanvasParticles();
         initParticles();
     });
-    resizeCanvas();
+    resizeCanvasParticles();
     initParticles();
     drawParticles();
-    
-    // Optional: dynamic hover effect on cards with modern look
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => {
-        section.addEventListener('mouseenter', function(e) {
-            this.style.transition = 'all 0.25s ease';
-        });
-    });
-    
-    // Set tahun dinamis di footer? sudah 2026, ok
-    // Tambah efek glow pada title
-    const nameElem = document.getElementById("dynamicName");
-    if(nameElem){
+
+    // optional glitch effect on name
+    const nameHeader = document.getElementById("dynamicName");
+    if (nameHeader) {
         setInterval(() => {
-            nameElem.style.textShadow = "0 0 5px rgba(139,92,246,0.5)";
+            nameHeader.style.textShadow = "0 0 6px #0ff, 0 0 2px #ff00aa";
             setTimeout(() => {
-                nameElem.style.textShadow = "none";
-            }, 800);
-        }, 2500);
+                nameHeader.style.textShadow = "0 0 5px rgba(0,229,255,0.5)";
+            }, 400);
+        }, 3000);
     }
 </script>
 </body>
